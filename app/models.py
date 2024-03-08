@@ -13,4 +13,4 @@ class Vaccination(models.Model):
     nb_doses = models.CharField(max_length=255)
     def __str__(self):
         """..."""
-        return f"{self.code_region} - {self.code_departement} - {self.type_de_vaccin} - {self.type_de_vaccin}"
+        return f"{self.code_region} - {self.code_departement} - {self.date_fin_semaine} - {self.type_de_vaccin}"

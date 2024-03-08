@@ -16,7 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from api.views import VaccinAPIView, LocalisationAPIView, DateAPIView, TypeAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('Vaccins/', VaccinAPIView.as_view(), name='Vaccin-list'),
+    path('Vaccins/<str:id_vac>/', VaccinAPIView.as_view(), name='Vaccin-detail'),
+
+    path('Localisations/', LocalisationAPIView.as_view(), name='Localisation-list'),
+    path('Localisations/<str:id_local>/', LocalisationAPIView.as_view(), name='Localisation-detail'),
+
+    path('Dates/', DateAPIView.as_view(), name='Date-list'),
+    path('Dates/<str:date_fs>/', DateAPIView.as_view(), name='Date-detail'),
+
+    path('Types/', TypeAPIView.as_view(), name='Type-list'),
+    path('Types/<str:type_vac>/', TypeAPIView.as_view(), name='Type-detail')
 ]

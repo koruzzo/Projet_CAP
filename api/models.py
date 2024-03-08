@@ -19,7 +19,7 @@ class D_Date(models.Model):
 class D_Localisation(models.Model):
     """Table de dimension pour la localisation."""
     id_local = models.SlugField(primary_key=True, max_length=9)
-    code_region = models.IntegerField()
+    code_region = models.CharField(max_length=4)
     code_depart = models.CharField(max_length=4)
     libelle_region = models.CharField(max_length=4)
     libelle_depart = models.CharField(max_length=30)
@@ -28,7 +28,7 @@ class D_Localisation(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         """..."""
-        return f"{self.id_local}"
+        return f"{self.id_local} - {self.code_region} - {self.code_depart} - {self.libelle_region} - {self.libelle_depart}"
 
 class F_Vaccin(models.Model):
     """Table de fait pour les vaccins."""
@@ -36,11 +36,11 @@ class F_Vaccin(models.Model):
     local_fk = models.ForeignKey('D_Localisation', on_delete=models.CASCADE)
     date_fk = models.ForeignKey('D_Date', on_delete=models.CASCADE)
     type_fk = models.ForeignKey('D_Type', on_delete=models.CASCADE)
-    nb_ucd = models.DecimalField(max_digits=10, decimal_places=10)
-    nb_doses = models.DecimalField(max_digits=10, decimal_places=10)
+    nb_ucd = models.FloatField()
+    nb_doses = models.FloatField()
     def save(self, *args, **kwargs):
         self.id_vac = slugify(f"{self.local_fk}-{self.date_fk}-{self.type_fk}")
         super().save(*args, **kwargs)
     def __str__(self):
         """..."""
-        return f"{self.nb_ucd} - {self.nb_doses}"
+        return f"{self.id_vac} - {self.local_fk} - {self.date_fk} - {self.type_fk} -  {self.nb_ucd} - {self.nb_doses}"
