@@ -26,11 +26,20 @@ class VaccinAPIView(APIView):
                 return Response({"error": "Aucun Vaccin ne correspond à cette ID"}, status=status.HTTP_404_NOT_FOUND)
         else:
             paginator = PageNumberPagination()
-            paginator.page_size = 10
+            paginator.page_size = 2
             vaccins = F_Vaccin.objects.all()
-            result_page = paginator.paginate_queryset(vaccins, request)
-            serializer = FVaccinSerializer(result_page, many=True)
-            return paginator.get_paginated_response(serializer.data)
+            nombre_de_lignes = vaccins.count()
+            vaccins = paginator.paginate_queryset(vaccins, request)
+            serializer = FVaccinSerializer(vaccins, many=True)
+            result = {
+                'nombre_de_lignes': nombre_de_lignes,
+                'data': serializer.data,
+                'next': paginator.get_next_link(),
+                'previous': paginator.get_previous_link()
+            }
+            return Response(result, status=status.HTTP_200_OK)
+
+
 
 class LocalisationAPIView(APIView):
     """..."""
@@ -44,9 +53,19 @@ class LocalisationAPIView(APIView):
             except D_Localisation.DoesNotExist:
                 return Response({"error": "Aucune localisation ne correspond à cette ID"}, status=status.HTTP_404_NOT_FOUND)
         else:
+            paginator = PageNumberPagination()
+            paginator.page_size = 2
             localis = D_Localisation.objects.all()
+            nombre_de_lignes = localis.count()
+            localis = paginator.paginate_queryset(localis, request)
             serializer = DLocalisationSerializer(localis, many=True)
-            return Response(serializer.data)
+            result = {
+                'nombre_de_lignes': nombre_de_lignes,
+                'data': serializer.data,
+                'next': paginator.get_next_link(),
+                'previous': paginator.get_previous_link()
+            }
+            return Response(result, status=status.HTTP_200_OK)
       
 class DateAPIView(APIView):
     """..."""
@@ -56,13 +75,23 @@ class DateAPIView(APIView):
             try:
                 date = D_Date.objects.get(date_fs=date_fs)
                 serializer = DDateSerializer(date)
-                return Response(serializer.data)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except D_Date.DoesNotExist:
                 return Response({"error": "Aucune date ne correspond à cette ID"}, status=status.HTTP_404_NOT_FOUND)
         else:
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
             dates = D_Date.objects.all()
+            nombre_de_lignes = dates.count()
+            dates = paginator.paginate_queryset(dates, request)
             serializer = DDateSerializer(dates, many=True)
-            return Response(serializer.data)
+            result = {
+                'nombre_de_lignes': nombre_de_lignes,
+                'data': serializer.data,
+                'next': paginator.get_next_link(),
+                'previous': paginator.get_previous_link()
+            }
+            return Response(result, status=status.HTTP_200_OK)
 
 class TypeAPIView(APIView):
     """..."""
@@ -76,6 +105,16 @@ class TypeAPIView(APIView):
             except D_Type.DoesNotExist:
                 return Response({"error": "Aucune date ne correspond à cette ID"}, status=status.HTTP_404_NOT_FOUND)
         else:
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
             typeVas = D_Type.objects.all()
+            nombre_de_lignes = typeVas.count()
+            typeVas = paginator.paginate_queryset(typeVas, request)
             serializer = DTypeSerializer(typeVas, many=True)
-            return Response(serializer.data)
+            result = {
+                'nombre_de_lignes': nombre_de_lignes,
+                'data': serializer.data,
+                'next': paginator.get_next_link(),
+                'previous': paginator.get_previous_link()
+            }
+            return Response(result, status=status.HTTP_200_OK)

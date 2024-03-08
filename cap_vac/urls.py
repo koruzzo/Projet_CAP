@@ -20,7 +20,7 @@ from api.views import VaccinAPIView, LocalisationAPIView, DateAPIView, TypeAPIVi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+
     path('Vaccins/', VaccinAPIView.as_view(), name='Vaccin-list'),
     path('Vaccins/<str:id_vac>/', VaccinAPIView.as_view(), name='Vaccin-detail'),
 
