@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app.views import index
 from api.views import VaccinAPIView, LocalisationAPIView, DateAPIView, TypeAPIView
 
 urlpatterns = [
+    
+    path('', index),
+    
     path('admin/', admin.site.urls),
 
     path('Vaccins/', VaccinAPIView.as_view(), name='Vaccin-list'),
@@ -31,5 +35,5 @@ urlpatterns = [
     path('Dates/<str:date_fs>/', DateAPIView.as_view(), name='Date-detail'),
 
     path('Types/', TypeAPIView.as_view(), name='Type-list'),
-    path('Types/<str:type_vac>/', TypeAPIView.as_view(), name='Type-detail')
+    path('Types/<str:type_vac>/', TypeAPIView.as_view(), name='Type-detail'),
 ]

@@ -3,6 +3,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 from api.models import D_Date, D_Type, D_Localisation, F_Vaccin
 from .serializers import FVaccinSerializer, DDateSerializer, DLocalisationSerializer, DTypeSerializer
 
@@ -13,8 +17,14 @@ from .serializers import FVaccinSerializer, DDateSerializer, DLocalisationSerial
 #     'd_localisation': (D_Localisation, DLocalisationSerializer),
 # }
 
+
+
+
+
 class VaccinAPIView(APIView):
     """..."""
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, id_vac=None):
         """..."""
         if id_vac:

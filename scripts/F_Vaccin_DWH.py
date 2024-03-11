@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 from datetime import datetime
+
 from django.utils.text import slugify
 from api.models import F_Vaccin, D_Localisation, D_Date, D_Type
 
@@ -55,9 +56,14 @@ def run():
                 )
             else:
                 print("Une ou plusieurs clés étrangères n'ont pas été trouvées.")
+        elif float(nb_doses) > 0:
+            existing_vaccin = vaccins_to_create[id_vac]
+            existing_nb_doses = existing_vaccin.nb_doses
+            existing_vaccin.nb_doses = float(nb_doses)
+            existing_vaccin.nb_ucd = nb_ucd
+            print(f"Remplacement de l'entrée pour {id_vac}. Ancien nombre de doses : {existing_nb_doses}. Nouveau nombre de doses : {nb_doses}.")
         else:
             print("Le vaccin avec cet ID existe déjà dans la liste des vaccins à créer :",id_vac)
-
     print("Nombre de vaccins à créer:", len(vaccins_to_create))
     F_Vaccin.objects.bulk_create(vaccins_to_create.values())
     print("BDD remplie !")
