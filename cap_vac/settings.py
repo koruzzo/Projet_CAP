@@ -31,6 +31,8 @@ STATICFILES_DIRS = [
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = config('SECRET_KEY')
+API_KEY = config('API_KEY')
+DISCORD_TOKEN = config('DISCORD_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'django_extensions',
     'api',
     'app',
@@ -140,3 +143,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', 
+     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
