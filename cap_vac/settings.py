@@ -32,6 +32,7 @@ STATICFILES_DIRS = [
 
 SECRET_KEY = config('SECRET_KEY')
 API_KEY = config('API_KEY')
+DISCORD_TOKEN = config('DISCORD_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

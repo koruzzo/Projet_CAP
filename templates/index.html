@@ -4,14 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
+    <!-- Inclure Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styles personnalisés */
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .list-group-item:hover {
+            background-color: #dee2e6;
+            transform: translateY(-2px);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Doses de vaccins par département</h1>
-    <h2>Total des doses : {{ total_doses }}</h2>
-    <ul>
-        {% for vaccin in vaccins_page.object_list %}
-            <li>{{ vaccin.local_fk.libelle_depart }}: {{ vaccin.nb_doses }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Doses de vaccins par département</h1>
+        <h2 class="mb-3">Total des doses : {{ total_doses }}</h2>
+        <ul class="list-group mb-4">
+            {% for vaccin in vaccins_page.object_list %}
+                <li class="list-group-item">{{ vaccin.local_fk.libelle_depart }}: {{ vaccin.nb_doses }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Inclure Bootstrap JS si nécessaire -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

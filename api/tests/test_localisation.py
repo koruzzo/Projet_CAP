@@ -3,10 +3,17 @@ from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from api.views import LocalisationAPIView
 
+from django.contrib.auth.models import User
+from django.conf import settings
+
+
+api_key = getattr(settings, 'API_KEY', '')
 factory = APIRequestFactory()
+user = User.objects.get(username='admin')
+req = factory.get('Localisations/',headers={'Authorization': 'Token '+ api_key})
 
 view = LocalisationAPIView.as_view()
-req = factory.get('Localisations/')
+
 id_local = "84-01"
 wrong_id_local = "84-011"
 

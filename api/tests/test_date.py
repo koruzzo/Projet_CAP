@@ -3,10 +3,16 @@ from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from api.views import DateAPIView
 
+from django.contrib.auth.models import User
+from django.conf import settings
+
+
+api_key = getattr(settings, 'API_KEY', '')
 factory = APIRequestFactory()
+user = User.objects.get(username='admin')
+req = factory.get('Dates/',headers={'Authorization': 'Token '+ api_key})
 
 view = DateAPIView.as_view()
-req = factory.get('Dates/')
 date_fs = "2021-06-20"
 wrong_date_Fs = "2021-06-21"
 

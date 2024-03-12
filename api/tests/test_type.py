@@ -2,11 +2,16 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from api.views import TypeAPIView
+from django.contrib.auth.models import User
+from django.conf import settings
 
+
+api_key = getattr(settings, 'API_KEY', '')
 factory = APIRequestFactory()
+user = User.objects.get(username='admin')
+req = factory.get('Types/',headers={'Authorization': 'Token '+ api_key})
 
 view = TypeAPIView.as_view()
-req = factory.get('Types/')
 type_vac = "Janssen"
 wrong_type_vac = "Astra Zeneca"
 

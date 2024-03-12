@@ -2,12 +2,19 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
 from api.views import VaccinAPIView
+from django.contrib.auth.models import User
+from django.conf import settings
 
+
+api_key = getattr(settings, 'API_KEY', '')
 
 factory = APIRequestFactory()
 
+user = User.objects.get(username='admin')
+
+req = factory.get('Vaccins/',headers={'Authorization': 'Token '+ api_key})
+
 view = VaccinAPIView.as_view()
-req = factory.get('Vaccins/')
 id_vac = "84-01-2021-06-13-astrazeneca"
 wrong_id_vac = "84-01-2021-06-13-astrazenca"
 

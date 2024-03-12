@@ -18,9 +18,6 @@ from .serializers import FVaccinSerializer, DDateSerializer, DLocalisationSerial
 # }
 
 
-
-
-
 class VaccinAPIView(APIView):
     """..."""
     authentication_classes = [TokenAuthentication, SessionAuthentication]
@@ -53,6 +50,8 @@ class VaccinAPIView(APIView):
 
 class LocalisationAPIView(APIView):
     """..."""
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, id_local=None):
         """..."""
         if id_local:
@@ -79,6 +78,8 @@ class LocalisationAPIView(APIView):
       
 class DateAPIView(APIView):
     """..."""
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, date_fs=None):
         """..."""
         if date_fs:
@@ -105,6 +106,8 @@ class DateAPIView(APIView):
 
 class TypeAPIView(APIView):
     """..."""
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, type_vac=None):
         """..."""
         if type_vac:
