@@ -1,11 +1,9 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
-from api.views import DateAPIView
-
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from api.views import DateAPIView
 
 api_key = getattr(settings, 'API_KEY', '')
 factory = APIRequestFactory()
@@ -24,6 +22,9 @@ launchREQ_IDW = view(req,date_fs=wrong_date_Fs)
 launchREQ_IDW.render()
 
 class TestDate(TestCase):
+    """
+    Classe de tests pour les vues des dates.
+    """
     def setUp(self):
         pass
 

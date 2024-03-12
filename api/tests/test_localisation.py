@@ -1,10 +1,9 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
-from api.views import LocalisationAPIView
-
 from django.contrib.auth.models import User
 from django.conf import settings
+from api.views import LocalisationAPIView
 
 
 api_key = getattr(settings, 'API_KEY', '')
@@ -25,6 +24,9 @@ launchREQ_IDW = view(req,id_local=wrong_id_local)
 launchREQ_IDW.render()
 
 class TestLocalisation(TestCase):
+    """
+    Classe de tests pour les vues des localisations.
+    """
     def setUp(self):
         pass
 

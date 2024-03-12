@@ -1,10 +1,9 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
-from api.views import VaccinAPIView
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from api.views import VaccinAPIView
 
 api_key = getattr(settings, 'API_KEY', '')
 
@@ -26,10 +25,16 @@ launchREQ_IDW = view(req,id_vac=wrong_id_vac)
 launchREQ_IDW.render()
 
 class TestVaccin(TestCase):
+    """
+    Classe de test pour tester les vues de l'API Vaccin.
+    """
     def setUp(self):
         pass
 
     def test_get_all(self):
+        """
+        Teste la récupération de toutes les données sur les vaccins.
+        """
         try:
             self.assertEqual(launchREQ.status_code, status.HTTP_200_OK)
         except AssertionError as e:
@@ -38,6 +43,9 @@ class TestVaccin(TestCase):
             self.fail(f"Unexpected exception: {e}")
 
     def test_get_all_data(self):
+        """
+        Teste la récupération de toutes les données sur les vaccins avec vérification des données.
+        """
         try:
             self.assertEqual(launchREQ.status_code, status.HTTP_200_OK)
             expected_data = [
@@ -60,6 +68,9 @@ class TestVaccin(TestCase):
             self.fail(f"Unexpected exception: {e}")
 
     def test_get_id(self):
+        """
+        Teste la récupération de données sur un vaccin spécifique.
+        """
         try:
             self.assertEqual(launchREQ_ID.status_code, status.HTTP_200_OK)
         except AssertionError as e:
@@ -68,6 +79,9 @@ class TestVaccin(TestCase):
             self.fail(f"Unexpected exception: {e}")
 
     def test_get_wrong_id(self):
+        """
+        Teste la récupération de données sur un vaccin avec un ID incorrect.
+        """
         try:
             self.assertEqual(launchREQ_IDW.status_code, status.HTTP_404_NOT_FOUND)
         except AssertionError as e:
@@ -76,6 +90,9 @@ class TestVaccin(TestCase):
             self.fail(f"Unexpected exception: {e}")
 
     def test_get_lignes(self):
+        """
+        Teste la récupération du nombre de lignes de données sur les vaccins.
+        """
         try:
             self.assertEqual(launchREQ.status_code, status.HTTP_200_OK)
             self.assertEqual(launchREQ.data['nombre_de_lignes'], 32952)

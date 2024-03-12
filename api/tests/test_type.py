@@ -1,9 +1,10 @@
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
-from api.views import TypeAPIView
 from django.contrib.auth.models import User
 from django.conf import settings
+from api.views import TypeAPIView
+
 
 
 api_key = getattr(settings, 'API_KEY', '')
@@ -23,6 +24,9 @@ launchREQ_IDW = view(req,type_vac=wrong_type_vac)
 launchREQ_IDW.render()
 
 class TestType(TestCase):
+    """
+    Classe de tests pour les vues des types de vaccins.
+    """
     def setUp(self):
         pass
 

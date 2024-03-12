@@ -1,29 +1,29 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import authenticate
 from api.models import D_Date, D_Type, D_Localisation, F_Vaccin
 from .serializers import FVaccinSerializer, DDateSerializer, DLocalisationSerializer, DTypeSerializer
 
-# TABLE_SERIALIZER_MAP = {
-#     'f_vaccin': (F_Vaccin, FVaccinSerializer),
-#     'd_date': (D_Date, DDateSerializer),
-#     'd_type': (D_Type, DTypeSerializer),
-#     'd_localisation': (D_Localisation, DLocalisationSerializer),
-# }
-
-
 class VaccinAPIView(APIView):
-    """..."""
+    """
+    API View pour récupérer les données sur les vaccins.
+    """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request, id_vac=None):
-        """..."""
+        """
+        Récupère les données sur les vaccins.
+
+        Args:
+            request: La requête HTTP reçue par la vue.
+            id_vac (str): L'ID du vaccin à récupérer.
+
+        Returns:
+            Response: La réponse HTTP contenant les données sur les vaccins.
+        """
         if id_vac:
             try:
                 vaccin = F_Vaccin.objects.get(id_vac=id_vac)
@@ -46,14 +46,23 @@ class VaccinAPIView(APIView):
             }
             return Response(result, status=status.HTTP_200_OK)
 
-
-
 class LocalisationAPIView(APIView):
-    """..."""
+    """
+    API View pour récupérer les données sur les localisations.
+    """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request, id_local=None):
-        """..."""
+        """
+        Récupère les données sur les localisations.
+
+        Args:
+            request: La requête HTTP reçue par la vue.
+            id_local (str): L'ID de la localisation à récupérer.
+
+        Returns:
+            Response: La réponse HTTP contenant les données sur les localisations.
+        """
         if id_local:
             try:
                 locali = D_Localisation.objects.get(id_local=id_local)
@@ -77,11 +86,22 @@ class LocalisationAPIView(APIView):
             return Response(result, status=status.HTTP_200_OK)
       
 class DateAPIView(APIView):
-    """..."""
+    """
+    API View pour récupérer les données sur les dates.
+    """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request, date_fs=None):
-        """..."""
+        """
+        Récupère les données sur les dates.
+
+        Args:
+            request: La requête HTTP reçue par la vue.
+            date_fs (str): La date à récupérer.
+
+        Returns:
+            Response: La réponse HTTP contenant les données sur les dates.
+        """
         if date_fs:
             try:
                 date = D_Date.objects.get(date_fs=date_fs)
@@ -105,11 +125,22 @@ class DateAPIView(APIView):
             return Response(result, status=status.HTTP_200_OK)
 
 class TypeAPIView(APIView):
-    """..."""
+    """
+    API View pour récupérer les données sur les types de vaccins.
+    """
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request, type_vac=None):
-        """..."""
+        """
+        Récupère les données sur les types de vaccins.
+
+        Args:
+            request: La requête HTTP reçue par la vue.
+            type_vac (str): Le type de vaccin à récupérer.
+
+        Returns:
+            Response: La réponse HTTP contenant les données sur les types de vaccins.
+        """
         if type_vac:
             try:
                 typeVa = D_Type.objects.get(type_vac=type_vac)
